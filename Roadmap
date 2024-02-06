@@ -1,0 +1,19 @@
+why react was created
+=> Phantom message problem, no consistency in UI
+
+State => JS and UI => DOM
+
+Topics
+=> core of react (state or Ui mainpulation, JSX)
+=> component Reuseablility
+=> Resuing of Components ( props)
+=> How to propagate chnage ( hooks )
+
+Additional Addon to React
+=> Router (React dont have Routes)
+=> State Management (React dont have State Management )
+-> REdux, Redux Toolkit, zustand, contect api,
+=> class based component
+-> legacy code
+=> Baas Apps
+-> Social Media clone , ecommerce App.............
