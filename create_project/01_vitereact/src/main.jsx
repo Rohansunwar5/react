@@ -22,12 +22,12 @@ function MyApp() {
   const anotherElement = (
     <a href="http://www.github.com" target ="_blank">Github</a>
   )
-  const anotherUser = "chai aur react"
+  const anotherUser = " chai aur react"
 
   const reactElement = React.createElement(
     'a',
     {href: 'https://google.com', target: '_blank'},
-    'click me to visit google',
+    'Just Revisiting the app',
     // if(anotherUser){}  =>  js code execution is not allowed because its and evalutaed expression in the inner working of the react from creating element, this wont match the parameters 
     anotherUser // example of the varaible that was being passed as react element from the custom react 
   )
@@ -36,6 +36,6 @@ render(
     // <App/>
     // <MyApp />
     // MyApp() does the same thing 
-    // anotherElement
+    // anotherElement,
     reactElement
 )

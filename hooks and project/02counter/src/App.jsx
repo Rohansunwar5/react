@@ -7,15 +7,21 @@ import './App.css'
 function App() {
   // let counter = 5; this will work but it wont propagate in the ui
   const addValue = () => {
-    console.log("Clicked", counter); // problem in ui updation
-    counter += 1;
-    setCounter(counter)
+    // problem in ui updation
+    if (counter < 20) {
+      // counter += 1; same thing
+      setCounter(counter + 1)
+      
+    }
   }
   const removeValue = () => {
     if(counter >=1 ){
-      
+      // counter -= 1; same thing
       setCounter(counter -1);
     }
+  }
+  const reset  = () => {
+    setCounter(counter =0);
   }
   //useSate is responsible for changeing the state  => not the values , but this change is poropagated in the dom
   let [counter, setCounter] = useState(5) // 0th -> counter, 1st -> function that counter the 0th varaible 
@@ -30,6 +36,7 @@ function App() {
       >Add Value {counter}</button>
       <br />
       <button onClick={removeValue}>Remove Value {counter}</button>
+      <button onClick={reset}>Reset Value {counter}</button>
       <br />
       <p>Footer:{counter}</p>
     </>
