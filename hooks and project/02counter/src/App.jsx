@@ -10,8 +10,20 @@ function App() {
     // problem in ui updation
     if (counter < 20) {
       // counter += 1; same thing
-      setCounter(counter + 1)
-      
+      // prev counter returns  previous state value
+      // setCounter(counter + 1)
+      setCounter((prevCounter) => prevCounter +1)
+      setCounter((prevCounter) => prevCounter +1)
+      setCounter((prevCounter) => prevCounter +1)
+      setCounter((prevCounter) => prevCounter +1)
+      // when the value is coming through callback then it completes and a proper ui updatetion is done
+
+
+      // a batch  of state updates is created here and then all at once when the component re-renders, so only once is the value incremented 
+      // setCounter(counter + 1)
+      // setCounter(counter + 1)
+      // setCounter(counter + 1)
+      // setCounter(counter + 1)
     }
   }
   const removeValue = () => {
