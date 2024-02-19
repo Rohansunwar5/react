@@ -1,34 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+import { TodoProvider } from './context'
 import './App.css'
+import TodoForm from './components/TodoForm'
+import TodoItem from './components/TodoItem'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todos, setTodos] =  useState([])
+  const addTodo = (todo) => { //  Add a new todo to the list
+    setTodos((prevTodo) => [ {id: Date.now(), ...todo} ,...prevTodo])
+  }
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  const updateTodo = (id , todo) => {// inside map individual todo
+    setTodos((prevTodo) => prevTodo.map((Todo)  =>(Todo.id === id ? todo : Todo))) 
+    // prevTodo.id is the one that is already present in the list and the id is the one that is being passed to match the available todo for the change 
+
+    // Note, todo => is the value we are passing and Todo => the the value we are accessing inside the already present object property of todos 
+  } 
+  
+  const deleteTodo = (id) => {
+    setTodos(( prevTodo) => prevTodo.filter((todo) => todo.id !== id))
+    // filtering out the matching id out, filter wont take the matching functions 
+  }
+
+  const toggleComplete = (id) => {
+    console.log("checl",id);
+    setTodos((prevTodo) => prevTodo.map((Todo) => (Todo.id === id ? {...Todo, completed: !Todo.completed}  : Todo) ))
+  }
+
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem("todos"))
+    if(todos && todos.length > 0) {
+      setTodos(todos)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  },[todos])
+
+  return(
+    <TodoProvider value={{ todos, addTodo,updateTodo,deleteTodo,toggleComplete }}>
+    <div className="bg-[#172842] min-h-screen py-8">
+      <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
+        <h1 className="text-2xl font-bold text-center mb-8 mt-2">
+          Manage Your Todos
+        </h1>
+        <div className="mb-4"><TodoForm/></div>
+        <div className="flex flex-wrap gap-y-3">
+          {/* Loop and TodoItem here */}
+          {todos.map((todo) => ( 
+            <div key={todo.id}
+              className='w-full'
+            >
+              <TodoItem todo= {todo}/>
+            </div>
+           ))}
+
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
+    </TodoProvider>
   )
 }
 
